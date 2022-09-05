@@ -98,7 +98,7 @@ def dump(fernet_key:bytes, obj:Any, file:BinaryIO) -> str:
     file.write(data)
     return digital_signature
 
-def load(fernet_key:bytes, digital_signature:str, file:BinaryIO):
+def load(fernet_key:bytes, digital_signature:str, file:BinaryIO) -> Any:
     """ read encrypted object from binary io and load it.
 
         args:
@@ -112,7 +112,7 @@ def load(fernet_key:bytes, digital_signature:str, file:BinaryIO):
         raise:
             IntegrityCheckFailed: the expected digital signature does not match the one generated from the encrypted object
             
-        >>> with open("example.pkl", "wb") as file: 
+        >>> with open("example.pkl", "rb") as file: 
         >>>     obj = protected.load(fernet_key, digital_signature, file)
     """
     return decrypt(fernet_key, digital_signature, file.read())
